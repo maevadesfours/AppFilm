@@ -85,7 +85,11 @@ class MainActivity : ComponentActivity() {
                             onClick = { navController.navigate(Series()) })
 
                     NavigationBarItem(
-                        icon = {  }, label = { Text("Acteurs") },
+                        icon = {Icon(
+                            painterResource(id = R.drawable.baseline_person_24),
+                            contentDescription = "film icon"
+                        )},
+                        label = { Text("Acteurs") },
                         selected = currentDestination?.hasRoute<Acteurs>() == true,
                         onClick = { navController.navigate(Acteurs()) })
                 }
