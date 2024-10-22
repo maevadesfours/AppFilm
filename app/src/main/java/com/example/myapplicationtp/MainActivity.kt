@@ -4,14 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -21,12 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+import androidx.navigation.NavController
 
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -60,6 +56,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
+            val viewModel : MainViewModel = viewModel()
 
 
             Scaffold(
@@ -100,10 +97,10 @@ class MainActivity : ComponentActivity() {
                     startDestination = Profil()
                 ) {
 
-                    composable<Films> { FilmsScreen(windowSizeClass) }
-                    composable<Series> { SeriesScreen(windowSizeClass) }
-                    composable<Acteurs> { ActeursScreen(windowSizeClass) }
-                    composable<Profil> { Screen(windowSizeClass)}
+                    composable<Films> { FilmsScreen( viewModel, navController) }
+                    composable<Series> { SeriesScreen(navController, windowSizeClass) }
+                    composable<Acteurs> { ActeursScreen(navController, windowSizeClass) }
+                    composable<Profil> { Screen( navController, windowSizeClass)}
                 }
             }
 
@@ -118,7 +115,9 @@ fun Profil(windowClass: WindowSizeClass) {
 
 @Composable
 
-fun Screen(windowClass: WindowSizeClass) {
+fun Screen(
+           navController: NavController,
+           windowClass: WindowSizeClass) {
     when (windowClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> {
             MyApplicationTPTheme {
@@ -133,26 +132,8 @@ fun Screen(windowClass: WindowSizeClass) {
     }
 }
 
-@Composable
-fun Films(windowClass: WindowSizeClass) {
 
-            }
-@Composable
-fun FilmsScreen(windowClass: WindowSizeClass) {
-    when (windowClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> {
-            MyApplicationTPTheme {
-                PageFilms()
-            }
-        }
-        else -> {
-            MyApplicationTPTheme {
-                HomeHorizontal("Android")
-            }
-        }
-    }
 
-}
 
 
 @Composable
@@ -160,7 +141,9 @@ fun Series(windowClass: WindowSizeClass) {
 }
 
 @Composable
-fun SeriesScreen(windowClass: WindowSizeClass) {
+fun SeriesScreen(
+                 navController: NavController,
+                 windowClass: WindowSizeClass) {
     when (windowClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> {
             MyApplicationTPTheme {
@@ -181,7 +164,9 @@ fun Acteurs(windowClass: WindowSizeClass) {
 
 }
 @Composable
-fun ActeursScreen(windowClass: WindowSizeClass) {
+fun ActeursScreen(
+                  navController: NavController,
+                  windowClass: WindowSizeClass) {
     when (windowClass.windowWidthSizeClass) {
         WindowWidthSizeClass.COMPACT -> {
             MyApplicationTPTheme {
