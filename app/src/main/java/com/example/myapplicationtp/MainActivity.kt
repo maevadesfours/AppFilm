@@ -44,7 +44,7 @@ class Series
 class Acteurs
 
 @Serializable
-class Profil
+class Home
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,11 +57,13 @@ class MainActivity : ComponentActivity() {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentDestination = navBackStackEntry?.destination
             val viewModel : MainViewModel = viewModel()
+            val startDestination = "home"
 
 
             Scaffold(
 
                 bottomBar = {
+                    if (currentDestination?.hasRoute<Home>()==false) {
                     NavigationBar {
                         NavigationBarItem(
                             icon = {
@@ -90,17 +92,18 @@ class MainActivity : ComponentActivity() {
                         selected = currentDestination?.hasRoute<Acteurs>() == true,
                         onClick = { navController.navigate(Acteurs()) })
                 }
+                    }
                 })
             { innerPadding ->
                 NavHost(modifier = Modifier.padding(innerPadding),
                     navController= navController,
-                    startDestination = Profil()
+                    startDestination = Home()
                 ) {
 
                     composable<Films> { FilmsScreen( viewModel, navController) }
-                    composable<Series> { SeriesScreen(navController, windowSizeClass) }
+                    composable<Series> { SeriesScreen(viewModel, navController) }
                     composable<Acteurs> { ActeursScreen(navController, windowSizeClass) }
-                    composable<Profil> { Screen( navController, windowSizeClass)}
+                    composable<Home> { Screen(windowSizeClass, navController)}
                 }
             }
 
@@ -108,56 +111,7 @@ class MainActivity : ComponentActivity() {
     }
  }
 
-@Composable
-fun Profil(windowClass: WindowSizeClass) {
 
-}
-
-@Composable
-
-fun Screen(
-           navController: NavController,
-           windowClass: WindowSizeClass) {
-    when (windowClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> {
-            MyApplicationTPTheme {
-                Home()
-            }
-        }
-        else -> {
-            MyApplicationTPTheme {
-                HomeHorizontal("Android")
-            }
-        }
-    }
-}
-
-
-
-
-
-@Composable
-fun Series(windowClass: WindowSizeClass) {
-}
-
-@Composable
-fun SeriesScreen(
-                 navController: NavController,
-                 windowClass: WindowSizeClass) {
-    when (windowClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> {
-            MyApplicationTPTheme {
-                PageSeries()
-            }
-        }
-        else -> {
-            MyApplicationTPTheme {
-                HomeHorizontal("Android")
-            }
-        }
-    }
-
-}
 
 @Composable
 fun Acteurs(windowClass: WindowSizeClass) {

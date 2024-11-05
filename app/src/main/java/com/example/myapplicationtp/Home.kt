@@ -2,30 +2,43 @@ package com.example.myapplicationtp
 
 import android.widget.Button
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import androidx.window.core.layout.WindowSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.myapplicationtp.ui.theme.MyApplicationTPTheme
 import com.example.myapplicationtp.ui.theme.MyBlue
 import com.example.myapplicationtp.ui.theme.MyGrey
 
 
+
+
+
 @Composable
-fun Home() {
+fun Home(padding: PaddingValues, navController: NavController) {
         Column (Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
     Nom()
 
@@ -45,9 +58,23 @@ fun Home() {
     LinkedinTwo()
     Spacer(modifier= Modifier.height(70.dp))
 
-    Demarrer()
+    Bouton(navController)
     }
 }
+
+@Composable
+fun Screen(windowClass: WindowSizeClass,
+        navController: NavController
+           ) {
+    when (windowClass.windowWidthSizeClass) {
+        WindowWidthSizeClass.COMPACT -> {
+            Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Home(innerPadding, navController)
+            }
+        }
+    }
+}
+
 
 @Composable
 fun Nom(){
@@ -110,14 +137,24 @@ fun LinkedinOne(){
 fun LinkedinTwo(){
     Text(
         text = "desfours-b80bbb263",
-        color = MyBlue,)
+        color = MyBlue)
 }
 @Composable
-fun Demarrer() {
-    Button(onClick = { /*action*/ }) {
-        Text("Démarrer", fontWeight = FontWeight.Bold, fontSize = 30.sp,style = MaterialTheme.typography.bodyMedium)
+fun Bouton(navController: NavController) {
+    Button(
+        onClick = { navController.navigate(Films()) },
+       /* colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Blue, // Couleur de fond du bouton
+            contentColor = Color.White // Couleur du texte à l'intérieur du bouton
+        ),*/
+        )
+        {
+        Text("Démarrer", fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,style = MaterialTheme.typography.bodyMedium)
     }
 }
+
+
 
 /*@Composable
 fun ButtonColors(

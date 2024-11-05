@@ -6,4 +6,7 @@ import retrofit2.http.Query
 interface Api {
     @GET("trending/movie/week")
     suspend fun lastmovies(@Query("api_key") api_key: String): ListeFilms
+
+    @GET("trending/tv/week")
+    suspend fun lastseries(@Query("api_key") api_key: String): ListeSeries
 }

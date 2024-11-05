@@ -13,6 +13,7 @@ import kotlin.jvm.internal.Intrinsics.Kotlin
 class MainViewModel : ViewModel() {
 
     val movies = MutableStateFlow<List<UnFilm>>(listOf())
+    val series = MutableStateFlow<List<UneSerie>>(listOf())
 
     val api_key = "b57151d36fecd1b693da830a2bc5766f"
 
@@ -32,4 +33,9 @@ class MainViewModel : ViewModel() {
             movies.value = api.lastmovies(api_key).results
     }
 }
+    fun getSeries() {
+        viewModelScope.launch {
+            series.value = api.lastseries(api_key).results
+        }
+    }
 }
