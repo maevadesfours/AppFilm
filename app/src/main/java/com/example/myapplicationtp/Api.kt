@@ -9,4 +9,12 @@ interface Api {
 
     @GET("trending/tv/week")
     suspend fun lastseries(@Query("api_key") api_key: String): ListeSeries
+
+
+    @GET("search/movie")
+    suspend fun requestedmovies(
+        @Query("api_key")  api_key: String,
+        @Query("language") language: String,
+        @Query("query") query: String
+    ): ListeFilms
 }

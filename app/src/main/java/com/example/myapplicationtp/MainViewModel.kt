@@ -16,6 +16,7 @@ class MainViewModel : ViewModel() {
     val series = MutableStateFlow<List<UneSerie>>(listOf())
 
     val api_key = "b57151d36fecd1b693da830a2bc5766f"
+    val language = "fr"
 
 
     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -36,6 +37,11 @@ class MainViewModel : ViewModel() {
     fun getSeries() {
         viewModelScope.launch {
             series.value = api.lastseries(api_key).results
+        }
+    }
+    fun getSearchMovies(query: String) {
+        viewModelScope.launch {
+            movies.value = api.requestedmovies(api_key, language,query).results
         }
     }
 }

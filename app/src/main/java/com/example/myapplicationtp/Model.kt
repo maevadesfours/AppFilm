@@ -9,7 +9,6 @@ data class ListeFilms(
 
 data class UnFilm(
     val adult: Boolean = false,
-    val backdrop_path: String = "",
 
     val budget: Int = 0,
 
@@ -72,7 +71,7 @@ data class ListeSeries(
 
 data class UneSerie(
     val adult: Boolean,
-    val backdrop_path: String,
+    //val backdrop_path: String,
     val first_air_date: String,
     //val genres: List<Genre>,
     //val homepage: String,
