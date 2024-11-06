@@ -11,8 +11,6 @@ data class UnFilm(
     val adult: Boolean = false,
 
     val budget: Int = 0,
-
-
     val homepage: String = "",
     val id: Int = 0,
     val imdb_id: String = "",

@@ -114,10 +114,6 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Acteurs(windowClass: WindowSizeClass) {
-
-}
-@Composable
 fun ActeursScreen(
                   navController: NavController,
                   windowClass: WindowSizeClass) {
@@ -136,29 +132,9 @@ fun ActeursScreen(
 
 }
 
-@Composable
-fun PageFilms(){
-    Text(
-        text = "Les films",
-        style = MaterialTheme.typography.titleLarge,
-        fontWeight = FontWeight.Bold,
-        color = MyBlue,
-        fontSize = 30.sp,
-        modifier = Modifier.padding(80.dp)
-    )
-}
 
-@Composable
-fun PageSeries(){
-    Text(
-        text = "Les séries",
-        style = MaterialTheme.typography.titleLarge,
-        fontWeight = FontWeight.Bold,
-        color = MyBlue,
-        fontSize = 30.sp,
-        modifier = Modifier.padding(80.dp)
-    )
-}
+
+
 
 @Composable
 fun PageActeurs(){
