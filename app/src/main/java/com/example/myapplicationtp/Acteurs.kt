@@ -38,19 +38,19 @@ import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeriesScreen(
+fun ActeursScreen(
     viewModel: MainViewModel,
     navController: NavController
 
 ) {
-    val series by viewModel.series.collectAsState()
+    val acteurs by viewModel.acteurs.collectAsState()
     var text by rememberSaveable { mutableStateOf("") }
     var isSearchActive by rememberSaveable { mutableStateOf(false) }
 
 
     LaunchedEffect(Unit)
     {
-        viewModel.getSeries()
+        viewModel.getActeurs()
     }
 
     //when (windowClass.windowWidthSizeClass) {
@@ -60,21 +60,21 @@ fun SeriesScreen(
         verticalArrangement = Arrangement.Top){
 
         Text(
-            text = "Les séries" ,
+            text = "Les acteurs" ,
             color = MyBlue,
             fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
-            )
+        )
 
         SearchBar(
             query = text,
             onQueryChange = { text = it },
-            onSearch = { isSearchActive = false; viewModel.getSearchSeries(text) },
+            onSearch = { isSearchActive = false; viewModel.getSearchActeurs(text) },
             placeholder = { Text("Chercher") },
             active =  isSearchActive,
             onActiveChange = { isSearchActive = it },
 
-        ) {
+            ) {
         }
     }
 
@@ -85,8 +85,8 @@ fun SeriesScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)) {
 
-        items(series) { serie ->
-            SerieItem(serie = serie, navController = navController)
+        items(acteurs) { acteur ->
+            ActeurItem(acteur = acteur, navController = navController)
         }
         /* }
      }
@@ -101,22 +101,22 @@ fun SeriesScreen(
 }
 
 @Composable
-fun SerieItem(serie: UneSerie,
+fun ActeurItem(acteur: UnActeur,
               navController: NavController) {
 
     Column (Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center){
 
-        LesImages(serie)
-        Titre(serie, navController)
-        Date(serie, navController)
+        LesImages(acteur)
+        Titre(acteur, navController)
+        Date(acteur, navController)
     }
 }
 
 @Composable
-fun Titre(serie: UneSerie,
+fun Titre(acteur: UnActeur,
           navController: NavController){
     Text(
-        text = serie.name,
+        text = acteur.name,
         color = MyBlue,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
@@ -124,19 +124,20 @@ fun Titre(serie: UneSerie,
 }
 
 @Composable
-fun Date(serie: UneSerie,
+fun Date(acteur: UnActeur,
          navController: NavController){
-    Text(
-        text = serie.first_air_date,
-        color = MyGrey,
-        fontSize = 12.sp
-    )
+
+    /*Text(
+        text = acteur.birthday.toString(),
+        color = MyBlue,
+        fontWeight = FontWeight.Bold,
+    )*/
 }
 
 @Composable
-fun LesImages(serie: UneSerie){
+fun LesImages(acteur: UnActeur){
     AsyncImage(
-        model = "https://image.tmdb.org/t/p/w780${serie.poster_path}",
+        model = "https://image.tmdb.org/t/p/w780${acteur.profile_path}",
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxHeight()

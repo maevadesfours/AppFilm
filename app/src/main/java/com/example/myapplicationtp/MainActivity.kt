@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity() {
 
                     composable<Films> { FilmsScreen( viewModel, navController) }
                     composable<Series> { SeriesScreen(viewModel, navController) }
-                    composable<Acteurs> { ActeursScreen(navController, windowSizeClass) }
+                    composable<Acteurs> { ActeursScreen(viewModel, navController) }
                     composable<Home> { Screen(windowSizeClass, navController)}
                 }
             }
@@ -111,42 +111,6 @@ class MainActivity : ComponentActivity() {
     }
  }
 
-
-
-@Composable
-fun ActeursScreen(
-                  navController: NavController,
-                  windowClass: WindowSizeClass) {
-    when (windowClass.windowWidthSizeClass) {
-        WindowWidthSizeClass.COMPACT -> {
-            MyApplicationTPTheme {
-                PageActeurs()
-            }
-        }
-        else -> {
-            MyApplicationTPTheme {
-                HomeHorizontal("Android")
-            }
-        }
-    }
-
-}
-
-
-
-
-
-@Composable
-fun PageActeurs(){
-    Text(
-        text = "Les acteurs",
-        style = MaterialTheme.typography.titleLarge,
-        fontWeight = FontWeight.Bold,
-        color = MyBlue,
-        fontSize = 30.sp,
-        modifier = Modifier.padding(80.dp)
-    )
-}
 
 
 

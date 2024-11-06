@@ -19,7 +19,7 @@ data class UnFilm(
     val original_title: String = "",
     val overview: String = "",
     val popularity: Double = 0.0,
-    val poster_path: String = "",
+    val poster_path: String?,
 
     val release_date: String = "",
     val revenue: Int = 0,
@@ -43,16 +43,14 @@ data class ListeActeurs(
 
 data class UnActeur(
     val adult: Boolean,
-    val also_known_as: List<String>,
     val biography: String  = "",
     val birthday: String?,
-    val credits: CreditsActors,
-    val deathday: Any,
+    //val deathday: Any,
     val gender: Int,
-    val homepage: Any,
+    //val homepage: Any,
     val id: Int,
-    val imdb_id: String,
-    val known_for_department: String,
+    //val imdb_id: String,
+    //val known_for_department: String,
     val name: String,
     val place_of_birth: String?,
     val popularity: Double,
@@ -79,7 +77,7 @@ data class UneSerie(
 
     val poster_path: String,
 
-)
+    )
 
 
 
