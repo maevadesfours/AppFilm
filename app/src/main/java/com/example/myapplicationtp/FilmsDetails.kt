@@ -1,5 +1,6 @@
 package com.example.myapplicationtp
 
+import androidx.compose.foundation.Image
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 
@@ -28,7 +29,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.myapplicationtp.ui.theme.MyBlue
@@ -49,8 +54,8 @@ fun ScreenFilmsDetails(ViewModel: MainViewModel,
         ViewModel.getFilmbyId(idFilm)
     }
 
-    LazyVerticalGrid(columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(top = 130.dp),
+    LazyVerticalGrid(columns = GridCells.Fixed(1),
+        modifier = Modifier.padding(top = 10.dp),
 
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -59,8 +64,8 @@ fun ScreenFilmsDetails(ViewModel: MainViewModel,
         film?.let{movie ->
     item {
         FilmDetailsItem(movie)
-    }
         }
+    }
 
     /* }
  }
@@ -77,59 +82,179 @@ fun ScreenFilmsDetails(ViewModel: MainViewModel,
 @Composable
 fun FilmDetailsItem(movie: UnFilm) {
 
-    Column (Modifier.fillMaxSize()
-        ,
-        verticalArrangement = Arrangement.Center
+    Column (Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ){
 
-        LesImages(movie)
-        Titre(movie)
+        //LesImages(movie)
+        LeTitre(movie)
+        Spacer(modifier= Modifier.height(40.dp))
+
+        Row (Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Absolute.Center){
+
+            LesAffiches(movie)
+            Description(movie)
+        }
+
+        Spacer(modifier= Modifier.height(30.dp))
+        Synopsis(movie)
+
+        Spacer(modifier= Modifier.height(30.dp))
+        Acteurs(movie)
+
+        //Spacer(modifier= Modifier.height(40.dp))
 
     }
 }
 
 @Composable
-fun oTitre(movie: UnFilm,
-          navController: NavController){
+fun LeTitre(movie: UnFilm){
     Text(
         text = movie.title,
         color = MyBlue,
         fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
+        fontSize = 30.sp
     )
 }
 
 @Composable
-fun oDate(movie: UnFilm,
-         navController: NavController){
+fun Description(movie: UnFilm){
+    Column (Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom){
+
+    Spacer(modifier= Modifier.height(20.dp))
+
+    Text(
+        text = "Date de sortie :",
+        color = MyGrey,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    )
+
     Text(
         text = movie.release_date,
         color = MyGrey,
-        fontSize = 12.sp
+        fontSize = 18.sp
     )
+
+        Spacer(modifier= Modifier.height(25.dp))
+
+    Text(
+        text = "Genres :",
+        color = MyGrey,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    )
+
+        movie.genres?.forEach { genre ->
+            Text(text = genre.name,
+                color = MyGrey,
+                fontSize = 18.sp)
+        }
+
+        Spacer(modifier= Modifier.height(25.dp))
+
+        Text(
+            text = "Nationalité :",
+            color = MyGrey,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp
+        )
+        movie.origin_country.forEach { country ->
+            Text(text = country,
+                color = MyGrey,
+                fontSize = 18.sp)
+        }
+    }
 }
 
+
 @Composable
-fun oLesImages(movie: UnFilm){
+fun LesAffiches(movie: UnFilm){
     AsyncImage(
         model = "https://image.tmdb.org/t/p/w780${movie.poster_path}",
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxHeight()
-            .width(250.dp)
+            .width(200.dp)
+            .padding(20.dp)
     )
 }
 
 
 @Composable
-fun Titre(movie: UnFilm){
+fun Synopsis(movie: UnFilm){
+    Column (Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom){
+
     Text(
-        text = movie.title,
+        text = "Synopsis",
         color = MyBlue,
         fontWeight = FontWeight.Bold,
+        fontSize = 25.sp
+    )
+
+    Spacer(modifier= Modifier.height(20.dp))
+
+    Text(
+        text = movie.overview,
+        color = MyGrey,
         fontSize = 18.sp
     )
 }
+}
+
+@Composable
+fun Acteurs(movie: UnFilm){
+    Column (Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom){
+
+        Text(
+            text = "Acteurs",
+            color = MyBlue,
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp
+        )
+
+        Spacer(modifier= Modifier.height(20.dp))
+
+        val lesActeurs = movie.credits?.cast?.take(5) ?: emptyList()
+
+        LazyColumn {
+            itemsIndexed(lesActeurs) { index, unActeur ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .padding(4.dp)
+                ) {
+
+                    // Utilisation d'AsyncImage pour charger l'image depuis une URL
+                   /* AsyncImage(
+                        model = "https://image.tmdb.org/t/p/w500${unActeur.profile_path}",
+                        contentDescription = unActeur.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(200.dp)
+                            .padding(20.dp)
+                    )*/
+
+                    // Affichage du nom de l'acteur
+                    Text(
+                        text = unActeur.name,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+            }
+        }
+
+
+    }
+        }
+
 
 
 

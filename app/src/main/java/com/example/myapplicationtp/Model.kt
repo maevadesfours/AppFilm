@@ -9,7 +9,7 @@ data class ListeFilms(
 
 data class UnFilm(
     val adult: Boolean = false,
-
+    val credits: Credits?,
     val budget: Int = 0,
     val homepage: String = "",
     val id: Int = 0,
@@ -30,7 +30,8 @@ data class UnFilm(
     val title: String = "",
     val video: Boolean = false,
     val vote_average: Double = 0.0,
-    val vote_count: Int = 0
+    val vote_count: Int = 0,
+    val genres: List<Genre>?,
 )
 
 
@@ -54,7 +55,7 @@ data class UnActeur(
     val name: String,
     val place_of_birth: String?,
     val popularity: Double,
-    val profile_path: String?
+    val profile_path: String?,
 )
 
 
