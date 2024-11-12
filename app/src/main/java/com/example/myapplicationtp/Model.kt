@@ -90,7 +90,7 @@ data class BelongsToCollection(
 )
 
 data class Credits(
-    val cast: List<Cast>,
+    val cast: List<Cast>?,
     val crew: List<Crew>
 )
 
@@ -129,7 +129,7 @@ data class Cast(
     val order: Int,
     val original_name: String,
     val popularity: Double,
-    val profile_path: String
+    val profile_path: String?
 )
 
 data class Crew(
@@ -143,7 +143,7 @@ data class Crew(
     val name: String,
     val original_name: String,
     val popularity: Double,
-    val profile_path: String
+    val profile_path: String?
 )
 
 data class CreditsActors(

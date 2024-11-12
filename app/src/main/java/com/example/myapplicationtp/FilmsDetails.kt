@@ -223,16 +223,19 @@ fun Acteurs(movie: UnFilm){
 
         val lesActeurs = movie.credits?.cast?.take(5) ?: emptyList()
 
-        LazyColumn {
-            itemsIndexed(lesActeurs) { index, unActeur ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp)
+        ) {
+
+            lesActeurs.forEach { unActeur ->
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .padding(4.dp)
                 ) {
-
-                    // Utilisation d'AsyncImage pour charger l'image depuis une URL
-                   /* AsyncImage(
+                    AsyncImage(
                         model = "https://image.tmdb.org/t/p/w500${unActeur.profile_path}",
                         contentDescription = unActeur.name,
                         contentScale = ContentScale.Crop,
@@ -240,7 +243,7 @@ fun Acteurs(movie: UnFilm){
                             .fillMaxHeight()
                             .width(200.dp)
                             .padding(20.dp)
-                    )*/
+                    )
 
                     // Affichage du nom de l'acteur
                     Text(
@@ -250,7 +253,6 @@ fun Acteurs(movie: UnFilm){
                 }
             }
         }
-
 
     }
         }
