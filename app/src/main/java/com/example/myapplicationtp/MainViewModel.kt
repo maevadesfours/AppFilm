@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -15,6 +16,9 @@ class MainViewModel : ViewModel() {
     val movies = MutableStateFlow<List<UnFilm>>(listOf())
     val series = MutableStateFlow<List<UneSerie>>(listOf())
     val acteurs = MutableStateFlow<List<UnActeur>>(listOf())
+
+    val movieById = MutableStateFlow<UnFilm?>(null)
+    //val selectedFilm: MutableStateFlow<UnFilm?> = movieById
 
     val api_key = "b57151d36fecd1b693da830a2bc5766f"
     val language = "fr"
@@ -60,6 +64,11 @@ class MainViewModel : ViewModel() {
     fun getSearchActeurs(query: String) {
         viewModelScope.launch {
             acteurs.value = api.requestedacteurs(api_key, language,query).results
+        }
+    }
+    fun getFilmbyId(idFilm:Int){
+        viewModelScope.launch{
+            movieById.value = api.moviedetails(idFilm, api_key, language)
         }
     }
 }

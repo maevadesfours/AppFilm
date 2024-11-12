@@ -32,8 +32,11 @@ import com.example.myapplicationtp.ui.theme.MyApplicationTPTheme
 import kotlinx.serialization.Serializable
 
 import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.example.myapplicationtp.ui.theme.MyBlue
 
 @kotlinx.serialization.Serializable
@@ -42,9 +45,11 @@ class Films
 class Series
 @Serializable
 class Acteurs
-
 @Serializable
 class Home
+@Serializable
+class FilmDetails(val id: Int)
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +109,16 @@ class MainActivity : ComponentActivity() {
                     composable<Series> { SeriesScreen(viewModel, navController) }
                     composable<Acteurs> { ActeursScreen(viewModel, navController) }
                     composable<Home> { Screen(windowSizeClass, navController)}
+
+                    composable<FilmDetails> { navBackStackEntry ->
+                        val filmDetails : FilmDetails = navBackStackEntry.toRoute()
+                        ScreenFilmsDetails(
+                            viewModel,
+                            //windowClass,
+                            filmDetails.id
+                        )
+
+                    }
                 }
             }
 

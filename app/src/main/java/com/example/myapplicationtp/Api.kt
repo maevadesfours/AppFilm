@@ -1,6 +1,7 @@
 package com.example.myapplicationtp
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Api {
@@ -33,4 +34,13 @@ interface Api {
         @Query("language") language: String,
         @Query("query") query: String
     ): ListeActeurs
+
+    @GET("movie/{id}?append_to_response=credits")
+    suspend fun moviedetails(
+        @Path("id") idFilm: Int,
+        @Query("api_key")  api_key: String,
+        @Query("language") language: String
+    ): UnFilm
 }
+
+

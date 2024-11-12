@@ -1,5 +1,6 @@
 package com.example.myapplicationtp
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -109,7 +110,12 @@ fun FilmsScreen(
 fun MovieItem(movie: UnFilm,
               navController: NavController) {
 
-    Column (Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center){
+    Column (Modifier.fillMaxSize()
+        .clickable {
+            navController.navigate(FilmDetails(movie.id))
+        },
+        verticalArrangement = Arrangement.Center
+    ){
 
     LesImages(movie)
     Titre(movie, navController)
