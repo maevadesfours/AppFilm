@@ -49,6 +49,8 @@ class Acteurs
 class Home
 @Serializable
 class FilmDetails(val id: Int)
+@Serializable
+class SerieDetails(val id: Int)
 
 
 class MainActivity : ComponentActivity() {
@@ -69,34 +71,34 @@ class MainActivity : ComponentActivity() {
 
                 bottomBar = {
                     if (currentDestination?.hasRoute<Home>()==false) {
-                    NavigationBar {
-                        NavigationBarItem(
-                            icon = {
-                                Icon(
-                                painterResource(id = R.drawable.baseline_movie_24),
+                        NavigationBar {
+                            NavigationBarItem(
+                                icon = {
+                                    Icon(
+                                        painterResource(id = R.drawable.baseline_movie_24),
+                                        contentDescription = "film icon"
+                                    )},
+                                label = { Text("Films") },
+                                selected = currentDestination?.hasRoute<Films>() == true,
+                                onClick = { navController.navigate(Films()) })
+                            NavigationBarItem(
+                                icon = {  Icon(
+                                    painterResource(id = R.drawable.baseline_local_movies_24),
+                                    contentDescription = "serie icon"
+                                )},
+                                label = { Text("Séries") },
+                                selected = currentDestination?.hasRoute<Series>() == true,
+                                onClick = { navController.navigate(Series()) })
+
+                            NavigationBarItem(
+                                icon = {Icon(
+                                    painterResource(id = R.drawable.baseline_person_24),
                                     contentDescription = "film icon"
                                 )},
-                            label = { Text("Films") },
-                            selected = currentDestination?.hasRoute<Films>() == true,
-                            onClick = { navController.navigate(Films()) })
-                        NavigationBarItem(
-                            icon = {  Icon(
-                                painterResource(id = R.drawable.baseline_local_movies_24),
-                                contentDescription = "serie icon"
-                            )},
-                            label = { Text("Séries") },
-                            selected = currentDestination?.hasRoute<Series>() == true,
-                            onClick = { navController.navigate(Series()) })
-
-                    NavigationBarItem(
-                        icon = {Icon(
-                            painterResource(id = R.drawable.baseline_person_24),
-                            contentDescription = "film icon"
-                        )},
-                        label = { Text("Acteurs") },
-                        selected = currentDestination?.hasRoute<Acteurs>() == true,
-                        onClick = { navController.navigate(Acteurs()) })
-                }
+                                label = { Text("Acteurs") },
+                                selected = currentDestination?.hasRoute<Acteurs>() == true,
+                                onClick = { navController.navigate(Acteurs()) })
+                        }
                     }
                 })
             { innerPadding ->
@@ -119,13 +121,19 @@ class MainActivity : ComponentActivity() {
                         )
 
                     }
+                    composable<SerieDetails> { navBackStackEntry ->
+                        val serieDetails : SerieDetails = navBackStackEntry.toRoute()
+
+                        ScreenSeriesDetails(
+                            viewModel,
+                            //windowClass,
+                            serieDetails.id
+                        )
+
+                    }
                 }
             }
 
         }
     }
- }
-
-
-
-
+}

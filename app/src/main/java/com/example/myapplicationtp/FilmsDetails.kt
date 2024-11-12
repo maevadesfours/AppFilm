@@ -235,6 +235,8 @@ fun Acteurs(movie: UnFilm){
                     modifier = Modifier
                         .padding(4.dp)
                 ) {
+
+
                     AsyncImage(
                         model = "https://image.tmdb.org/t/p/w500${unActeur.profile_path}",
                         contentDescription = unActeur.name,
@@ -245,18 +247,22 @@ fun Acteurs(movie: UnFilm){
                             .padding(20.dp)
                     )
 
-                    // Affichage du nom de l'acteur
-                    Text(
-                        text = unActeur.name,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                }
+
+                        Text(
+                            text = unActeur.name,
+                            modifier = Modifier.padding(top = 8.dp),
+                            color = MyGrey,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        )
+
+
             }
         }
 
     }
-        }
-
+    }
+}
 
 
 

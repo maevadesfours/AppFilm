@@ -1,5 +1,6 @@
 package com.example.myapplicationtp
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -104,7 +105,12 @@ fun SeriesScreen(
 fun SerieItem(serie: UneSerie,
               navController: NavController) {
 
-    Column (Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center){
+    Column (Modifier.fillMaxSize()
+        .clickable {
+            navController.navigate(FilmDetails(serie.id))
+        },
+        verticalArrangement = Arrangement.Center
+    ){
 
         LesImages(serie)
         Titre(serie, navController)

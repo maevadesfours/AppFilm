@@ -70,13 +70,14 @@ data class UneSerie(
     val adult: Boolean,
     //val backdrop_path: String,
     val first_air_date: String,
-    //val genres: List<Genre>,
+    val genres: List<Genre>?,
     //val homepage: String,
     val id: Int,
-
+    val credits: Credits?,
+    val origin_country: List<String>?,
     val name: String,
-
-    val poster_path: String,
+    val overview: String,
+    val poster_path: String?,
 
     )
 
