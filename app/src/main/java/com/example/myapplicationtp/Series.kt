@@ -112,20 +112,19 @@ fun SerieItem(serie: UneSerie,
 
     Column (Modifier.fillMaxSize()
         .clickable {
-            navController.navigate(FilmDetails(serie.id))
+            navController.navigate(SeriesDetails(serie.id))
         },
         verticalArrangement = Arrangement.Center
     ){
 
         LesImages(serie)
-        Titre(serie, navController)
-        Date(serie, navController)
+        Titre(serie)
+        Date(serie)
     }
 }
 
 @Composable
-fun Titre(serie: UneSerie,
-          navController: NavController){
+fun Titre(serie: UneSerie){
     Text(
         text = serie.name,
         color = MyBlue,
@@ -135,8 +134,7 @@ fun Titre(serie: UneSerie,
 }
 
 @Composable
-fun Date(serie: UneSerie,
-         navController: NavController){
+fun Date(serie: UneSerie){
     Text(
         text = serie.first_air_date,
         color = MyGrey,

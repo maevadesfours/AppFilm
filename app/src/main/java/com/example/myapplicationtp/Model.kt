@@ -120,7 +120,7 @@ data class SpokenLanguage(
 
 data class Cast(
     val adult: Boolean,
-    val cast_id: Int,
+    val cast_id: Int?,
     val character: String,
     val credit_id: String,
     val gender: Int,

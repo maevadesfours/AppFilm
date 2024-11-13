@@ -12,6 +12,7 @@
     <list default="true" id="bb218ff1-5ff3-4fac-9f9d-1768602377bb" name="Changes" comment="commit 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/Model.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/Model.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/Series.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/myapplicationtp/Series.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

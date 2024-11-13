@@ -56,6 +56,8 @@ class Acteurs
 class Home
 @Serializable
 class FilmDetails(val id: Int)
+@Serializable
+class SeriesDetails(val id: Int)
 
 
 class MainActivity : ComponentActivity() {
@@ -174,6 +176,14 @@ class MainActivity : ComponentActivity() {
                         viewModel,
                         //windowClass,
                         filmDetails.id
+                    )
+                }
+                composable<SeriesDetails> { navBackStackEntry ->
+                    val serieDetails : SeriesDetails = navBackStackEntry.toRoute()
+                    ScreenSeriesDetails(
+                        viewModel,
+                        //windowClass,
+                        serieDetails.id
                     )
                 }
             }
