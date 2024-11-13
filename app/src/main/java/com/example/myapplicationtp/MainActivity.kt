@@ -55,6 +55,9 @@ class Acteurs
 @Serializable
 class Home
 @Serializable
+class Collections
+
+@Serializable
 class FilmDetails(val id: Int)
 @Serializable
 class SeriesDetails(val id: Int)
@@ -102,11 +105,22 @@ class MainActivity : ComponentActivity() {
                                     NavigationBarItem(
                                         icon = {Icon(
                                             painterResource(id = R.drawable.baseline_person_24),
-                                            contentDescription = "film icon"
+                                            contentDescription = "acteur icon"
                                         )},
                                         label = { Text("Acteurs") },
                                         selected = currentDestination?.hasRoute<Acteurs>() == true,
                                         onClick = { navController.navigate(Acteurs()) })
+
+                                    NavigationBarItem(
+                                        icon = {Icon(
+                                            painterResource(id = R.drawable.ic_launcher_foreground),
+                                            contentDescription = "collections icon"
+                                        )},
+                                        label = { Text("Collections") },
+                                        selected = currentDestination?.hasRoute<Collections>() == true,
+                                        onClick = { navController.navigate(Collections()) })
+
+
                                 }
                             }
                         }
@@ -168,6 +182,7 @@ class MainActivity : ComponentActivity() {
                 composable<Films> { FilmsScreen( viewModel, navController) }
                 composable<Series> { SeriesScreen(viewModel, navController) }
                 composable<Acteurs> { ActeursScreen(viewModel, navController) }
+                composable<Collections> { CollectionsScreen(viewModel, navController) }
                 composable<Home> { Screen(windowSizeClass, navController)}
 
                 composable<FilmDetails> { navBackStackEntry ->
