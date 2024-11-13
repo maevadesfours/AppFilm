@@ -4,11 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
@@ -49,8 +56,6 @@ class Acteurs
 class Home
 @Serializable
 class FilmDetails(val id: Int)
-@Serializable
-class SerieDetails(val id: Int)
 
 
 class MainActivity : ComponentActivity() {
@@ -71,69 +76,114 @@ class MainActivity : ComponentActivity() {
 
                 bottomBar = {
                     if (currentDestination?.hasRoute<Home>()==false) {
-                        NavigationBar {
-                            NavigationBarItem(
-                                icon = {
-                                    Icon(
-                                        painterResource(id = R.drawable.baseline_movie_24),
-                                        contentDescription = "film icon"
-                                    )},
-                                label = { Text("Films") },
-                                selected = currentDestination?.hasRoute<Films>() == true,
-                                onClick = { navController.navigate(Films()) })
-                            NavigationBarItem(
-                                icon = {  Icon(
-                                    painterResource(id = R.drawable.baseline_local_movies_24),
-                                    contentDescription = "serie icon"
-                                )},
-                                label = { Text("Séries") },
-                                selected = currentDestination?.hasRoute<Series>() == true,
-                                onClick = { navController.navigate(Series()) })
+                        when (windowSizeClass.windowWidthSizeClass) {
+                            WindowWidthSizeClass.COMPACT -> {
+                                NavigationBar {
+                                    NavigationBarItem(
+                                        icon = {
+                                            Icon(
+                                                painterResource(id = R.drawable.baseline_movie_24),
+                                                contentDescription = "film icon"
+                                            )},
+                                        label = { Text("Films") },
+                                        selected = currentDestination?.hasRoute<Films>() == true,
+                                        onClick = { navController.navigate(Films()) })
+                                    NavigationBarItem(
+                                        icon = {  Icon(
+                                            painterResource(id = R.drawable.baseline_local_movies_24),
+                                            contentDescription = "serie icon"
+                                        )},
+                                        label = { Text("Séries") },
+                                        selected = currentDestination?.hasRoute<Series>() == true,
+                                        onClick = { navController.navigate(Series()) })
 
-                            NavigationBarItem(
-                                icon = {Icon(
-                                    painterResource(id = R.drawable.baseline_person_24),
-                                    contentDescription = "film icon"
-                                )},
-                                label = { Text("Acteurs") },
-                                selected = currentDestination?.hasRoute<Acteurs>() == true,
-                                onClick = { navController.navigate(Acteurs()) })
+                                    NavigationBarItem(
+                                        icon = {Icon(
+                                            painterResource(id = R.drawable.baseline_person_24),
+                                            contentDescription = "film icon"
+                                        )},
+                                        label = { Text("Acteurs") },
+                                        selected = currentDestination?.hasRoute<Acteurs>() == true,
+                                        onClick = { navController.navigate(Acteurs()) })
+                                }
+                            }
                         }
                     }
-                })
+                },
+            )
+
+
+
             { innerPadding ->
-                NavHost(modifier = Modifier.padding(innerPadding),
-                    navController= navController,
-                    startDestination = Home()
-                ) {
 
-                    composable<Films> { FilmsScreen( viewModel, navController) }
-                    composable<Series> { SeriesScreen(viewModel, navController) }
-                    composable<Acteurs> { ActeursScreen(viewModel, navController) }
-                    composable<Home> { Screen(windowSizeClass, navController)}
+                Row( modifier = Modifier.fillMaxSize().padding(innerPadding) ) {
+                    if (currentDestination?.hasRoute<Home>() == false
+                        && windowSizeClass.windowWidthSizeClass != WindowWidthSizeClass.COMPACT
+                    ) {
 
-                    composable<FilmDetails> { navBackStackEntry ->
-                        val filmDetails : FilmDetails = navBackStackEntry.toRoute()
-                        ScreenFilmsDetails(
-                            viewModel,
-                            //windowClass,
-                            filmDetails.id
-                        )
+                        NavigationRail(
+                            modifier = Modifier.fillMaxHeight()){
 
-                    }
-                    composable<SerieDetails> { navBackStackEntry ->
-                        val serieDetails : SerieDetails = navBackStackEntry.toRoute()
+                        NavigationRailItem(
+                            icon = {
+                                Icon(
+                                    painterResource(id = R.drawable.baseline_movie_24),
+                                    contentDescription = "film icon"
+                                )},
+                            label = { Text("Films") },
+                            selected = currentDestination?.hasRoute<Films>() == true,
+                            onClick = { navController.navigate(Films()) })
 
-                        ScreenSeriesDetails(
-                            viewModel,
-                            //windowClass,
-                            serieDetails.id
-                        )
+                        NavigationRailItem(
+                            icon = {  Icon(
+                                painterResource(id = R.drawable.baseline_local_movies_24),
+                                contentDescription = "serie icon"
+                            )},
+                            label = { Text("Séries") },
+                            selected = currentDestination?.hasRoute<Series>() == true,
+                            onClick = { navController.navigate(Series()) })
 
+                        NavigationRailItem(
+                            icon = {Icon(
+                                painterResource(id = R.drawable.baseline_person_24),
+                                contentDescription = "film icon"
+                            )},
+                            label = { Text("Acteurs") },
+                            selected = currentDestination?.hasRoute<Acteurs>() == true,
+                            onClick = { navController.navigate(Acteurs()) })
                     }
                 }
             }
 
+
+
+        Column {
+            NavHost(modifier = Modifier.padding(innerPadding),
+                navController= navController,
+                startDestination = Home()
+            ) {
+
+                composable<Films> { FilmsScreen( viewModel, navController) }
+                composable<Series> { SeriesScreen(viewModel, navController) }
+                composable<Acteurs> { ActeursScreen(viewModel, navController) }
+                composable<Home> { Screen(windowSizeClass, navController)}
+
+                composable<FilmDetails> { navBackStackEntry ->
+                    val filmDetails : FilmDetails = navBackStackEntry.toRoute()
+                    ScreenFilmsDetails(
+                        viewModel,
+                        //windowClass,
+                        filmDetails.id
+                    )
+                }
+            }
+        }
+    }
+
         }
     }
 }
+
+
+
+
