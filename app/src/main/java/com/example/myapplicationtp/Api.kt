@@ -14,6 +14,7 @@ interface Api {
     @GET("trending/person/week")
     suspend fun lastacteurs(@Query("api_key") api_key: String): ListeActeurs
 
+
     @GET("search/movie")
     suspend fun requestedmovies(
         @Query("api_key")  api_key: String,
@@ -35,6 +36,16 @@ interface Api {
         @Query("query") query: String
     ): ListeActeurs
 
+    @GET("search/collection?")
+    suspend fun lescollections(
+        @Query("api_key")  api_key: String,
+        @Query("language") language: String,
+        @Query("query") query: String
+    ): ListeCollections
+
+
+
+
     @GET("movie/{id}?append_to_response=credits")
     suspend fun moviedetails(
         @Path("id") idFilm: Int,
@@ -50,5 +61,4 @@ interface Api {
     ): UneSerie
 
 }
-
 

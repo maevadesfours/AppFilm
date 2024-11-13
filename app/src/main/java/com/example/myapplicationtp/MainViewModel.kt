@@ -16,6 +16,8 @@ class MainViewModel : ViewModel() {
     val movies = MutableStateFlow<List<UnFilm>>(listOf())
     val series = MutableStateFlow<List<UneSerie>>(listOf())
     val acteurs = MutableStateFlow<List<UnActeur>>(listOf())
+    val collections = MutableStateFlow<List<UneCollection>>(listOf())
+
 
     val movieById = MutableStateFlow<UnFilm?>(null)
     val serieById = MutableStateFlow<UneSerie?>(null)
@@ -51,6 +53,13 @@ class MainViewModel : ViewModel() {
         }
     }
 
+    fun getCollections() {
+        viewModelScope.launch {
+            collections.value = api.lescollections(api_key, "horror", "fr").results
+        }
+    }
+
+
     fun getSearchMovies(query: String) {
         viewModelScope.launch {
             movies.value = api.requestedmovies(api_key, language,query).results
@@ -67,6 +76,8 @@ class MainViewModel : ViewModel() {
             acteurs.value = api.requestedacteurs(api_key, language,query).results
         }
     }
+
+
     fun getFilmbyId(idFilm:Int){
         viewModelScope.launch{
             movieById.value = api.moviedetails(idFilm, api_key, language)
@@ -78,3 +89,5 @@ class MainViewModel : ViewModel() {
         }
     }
 }
+
+

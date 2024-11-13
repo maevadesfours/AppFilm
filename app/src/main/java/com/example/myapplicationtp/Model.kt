@@ -107,16 +107,7 @@ data class ProductionCompany(
     val origin_country: String
 )
 
-data class ProductionCountry(
-    val iso_3166_1: String,
-    val name: String
-)
 
-data class SpokenLanguage(
-    val english_name: String,
-    val iso_639_1: String,
-    val name: String
-)
 
 data class Cast(
     val adult: Boolean,
@@ -235,9 +226,9 @@ data class Season(
     val vote_average: Float
 )
 
-data class LesCollections(
+data class ListeCollections(
     val page: Int,
-    val results: List<Result>,
+    val results: List<UneCollection>,
     val total_pages: Int,
     val total_results: Int
 )
@@ -264,7 +255,7 @@ data class UneCollection(
     val backdrop_path: String,
     val belongs_to_collection: Any,
     val budget: Int,
-    val genres: List<Genre>,
+    val genres: List<GenreCollection>,
     val homepage: String,
     val id: Int,
     val imdb_id: String,
@@ -274,8 +265,6 @@ data class UneCollection(
     val overview: String,
     val popularity: Double,
     val poster_path: String,
-    val production_companies: List<ProductionCompany>,
-    val production_countries: List<ProductionCountry>,
     val release_date: String,
     val revenue: Int,
     val runtime: Int,
@@ -288,22 +277,12 @@ data class UneCollection(
     val vote_count: Int
 )
 
-data class Genre(
+data class GenreCollection(
     val id: Int,
     val name: String
 )
 
-data class ProductionCompany(
-    val id: Int,
-    val logo_path: Any,
-    val name: String,
-    val origin_country: String
-)
 
-data class ProductionCountry(
-    val iso_3166_1: String,
-    val name: String
-)
 
 data class SpokenLanguage(
     val english_name: String,
