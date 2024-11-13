@@ -3,8 +3,10 @@ package com.example.myapplicationtp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -18,12 +20,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.test.services.storage.file.PropertyFile.Column
+import coil.compose.AsyncImage
 import com.example.myapplicationtp.ui.theme.MyBlue
+import com.example.myapplicationtp.ui.theme.MyGrey
 
 
 @Composable
@@ -65,11 +70,9 @@ fun CollectionItem(collection : UneCollection ){
 
 
     TitreCo(collection)
+        LesImagesCo(collection)
     }
 }
-
-
-
 
 @Composable
 fun leTitre(){
@@ -86,8 +89,21 @@ fun leTitre(){
 fun TitreCo(collection: UneCollection){
     Text(
         text = collection.name,
-        color = MyBlue,
+        color = MyGrey,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
     )
 }
+
+@Composable
+fun LesImagesCo(collection: UneCollection){
+    AsyncImage(
+        model = "https://image.tmdb.org/t/p/w780${collection.poster_path}",
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxHeight()
+            .width(250.dp)
+    )
+}
+
