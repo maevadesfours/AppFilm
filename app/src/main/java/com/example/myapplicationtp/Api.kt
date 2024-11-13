@@ -41,7 +41,7 @@ interface Api {
         @Query("api_key")  api_key: String,
         @Query("language") language: String,
         @Query("query") query: String
-    ): ListeCollections
+    ): ListCollection
 
 
 

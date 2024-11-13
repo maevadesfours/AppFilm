@@ -182,7 +182,7 @@ class MainActivity : ComponentActivity() {
                 composable<Films> { FilmsScreen( viewModel, navController) }
                 composable<Series> { SeriesScreen(viewModel, navController) }
                 composable<Acteurs> { ActeursScreen(viewModel, navController) }
-                composable<Collections> { CollectionsScreen(viewModel, navController) }
+                composable<Collections> { CollectionsScreen(viewModel) }
                 composable<Home> { Screen(windowSizeClass, navController)}
 
                 composable<FilmDetails> { navBackStackEntry ->

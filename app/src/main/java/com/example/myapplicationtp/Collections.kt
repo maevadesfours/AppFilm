@@ -2,7 +2,12 @@ package com.example.myapplicationtp
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,19 +19,57 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.test.services.storage.file.PropertyFile.Column
 import com.example.myapplicationtp.ui.theme.MyBlue
 
 
 @Composable
 fun CollectionsScreen(
-    viewModel: MainViewModel,
-    navController: NavController
+    viewModel: MainViewModel
 
 ) {
-        leTitre()
+    val collections by viewModel.collections.collectAsState()
+    var text by rememberSaveable { mutableStateOf("") }
+    var isSearchActive by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(Unit)
+    {
+        viewModel.getCollections()
+    }
+
+    LazyVerticalGrid(columns = GridCells.Fixed(2),
+        modifier = Modifier.padding(top = 130.dp),
+
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+
+        items(collections) { collection ->
+            CollectionItem(collection = collection)
+        }
+
+    }
+    leTitre()
 }
+
+@Composable
+fun CollectionItem(collection : UneCollection ){
+
+    Column(
+        Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top){
+
+
+    TitreCo(collection)
+    }
+}
+
+
+
 
 @Composable
 fun leTitre(){
@@ -35,5 +78,16 @@ fun leTitre(){
         color = MyBlue,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp,
+    )
+}
+
+
+@Composable
+fun TitreCo(collection: UneCollection){
+    Text(
+        text = collection.name,
+        color = MyBlue,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
     )
 }

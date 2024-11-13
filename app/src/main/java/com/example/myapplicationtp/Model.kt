@@ -225,67 +225,21 @@ data class Season(
     val season_number: Int,
     val vote_average: Float
 )
-
-data class ListeCollections(
+data class ListCollection(
     val page: Int,
     val results: List<UneCollection>,
     val total_pages: Int,
     val total_results: Int
 )
 
-data class Result(
-    val adult: Boolean,
-    val backdrop_path: String,
-    val genre_ids: List<Int>,
-    val id: Int,
-    val original_language: String,
-    val original_title: String,
-    val overview: String,
-    val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
-    val title: String,
-    val video: Boolean,
-    val vote_average: Double,
-    val vote_count: Int
-)
-
 data class UneCollection(
     val adult: Boolean,
-    val backdrop_path: String,
-    val belongs_to_collection: Any,
-    val budget: Int,
-    val genres: List<GenreCollection>,
-    val homepage: String,
+   // val backdrop_path: String,
     val id: Int,
-    val imdb_id: String,
-    val origin_country: List<String>,
+    val name: String,
     val original_language: String,
-    val original_title: String,
+    val original_name: String,
     val overview: String,
-    val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
-    val revenue: Int,
-    val runtime: Int,
-    val spoken_languages: List<SpokenLanguage>,
-    val status: String,
-    val tagline: String,
-    val title: String,
-    val video: Boolean,
-    val vote_average: Double,
-    val vote_count: Int
+    val poster_path: String?
 )
 
-data class GenreCollection(
-    val id: Int,
-    val name: String
-)
-
-
-
-data class SpokenLanguage(
-    val english_name: String,
-    val iso_639_1: String,
-    val name: String
-)
