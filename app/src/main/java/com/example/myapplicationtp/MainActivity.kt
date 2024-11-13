@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
 
                                     NavigationBarItem(
                                         icon = {Icon(
-                                            painterResource(id = R.drawable.ic_launcher_foreground),
+                                            painterResource(id = R.drawable.baseline_collections_bookmark),
                                             contentDescription = "collections icon"
                                         )},
                                         label = { Text("Collections") },

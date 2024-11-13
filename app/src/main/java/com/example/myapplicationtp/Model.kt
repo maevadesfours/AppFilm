@@ -234,3 +234,4 @@ data class Season(
     val season_number: Int,
     val vote_average: Float
 )
+
